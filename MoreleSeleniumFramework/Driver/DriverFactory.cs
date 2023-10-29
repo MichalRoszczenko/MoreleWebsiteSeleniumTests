@@ -1,23 +1,20 @@
-﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
+﻿using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 
 namespace MoreleSeleniumFramework.Driver;
 
 public sealed class DriverFactory : IDriverFactory, IDisposable
 {
-	public IWebDriver Driver { get; private set; }
-	public DriverFactory()
-	{
-		ChromeDriver driver = new ChromeDriver();
-		driver.Manage().Window.Size = new System.Drawing.Size(1280, 1024);
-		driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
-		driver.Navigate().GoToUrl("https://www.morele.net/");
+	public ChromeDriver Driver { get; private set; }
 
-		Driver = driver;
+	public DriverFactory(IDriverCreator driverCreator)
+	{
+		Driver = driverCreator.Create();
 	}
 
 	public WebDriverWait CreateWebDriverWait() => new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
+	public Actions CreateActions() => new Actions(Driver);
 
 	public void Dispose()
 	{

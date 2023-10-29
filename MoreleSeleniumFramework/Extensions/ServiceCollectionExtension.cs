@@ -9,6 +9,7 @@ public static class ServiceCollectionExtension
 {
 	public static void AddFramework(this IServiceCollection services)
 	{
+		services.AddTransient<IDriverCreator, DriverCreator>();
 		services.AddScoped<IDriverFactory, DriverFactory>();
 		services.AddScoped<IHomePage, HomePage>();
 	}
