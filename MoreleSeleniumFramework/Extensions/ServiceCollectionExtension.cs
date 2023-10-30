@@ -12,5 +12,7 @@ public static class ServiceCollectionExtension
 		services.AddTransient<IDriverCreator, DriverCreator>();
 		services.AddScoped<IDriverFactory, DriverFactory>();
 		services.AddScoped<IHomePage, HomePage>();
+		services.AddScoped<IProductsInCategoryPage, ProductsInCategoryPage>();
+		services.AddScoped<IBasketPage, BasketPage>();
 	}
 }
