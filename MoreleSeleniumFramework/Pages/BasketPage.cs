@@ -1,6 +1,7 @@
 ﻿using MoreleSeleniumFramework.Driver;
 using MoreleSeleniumFramework.Models;
 using MoreleSeleniumFramework.Pages.Interfaces;
+using MoreleSeleniumFramework.Utilities;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using System.Collections.ObjectModel;
@@ -34,5 +35,13 @@ public sealed class BasketPage : IBasketPage
 		}
 
 		return products;
+	}
+
+	public decimal GetSummaryBasketPrice()
+	{
+		IWebElement priceInElement = _driver.FindElement(By.CssSelector(".summary-box-price b"));
+		decimal price = PriceConverter.ParsePriceToDecimal(priceInElement);
+
+		return price;
 	}
 }

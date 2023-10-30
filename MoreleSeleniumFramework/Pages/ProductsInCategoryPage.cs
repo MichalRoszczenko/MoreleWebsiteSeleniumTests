@@ -1,6 +1,7 @@
 ﻿using MoreleSeleniumFramework.Driver;
 using MoreleSeleniumFramework.Models;
 using MoreleSeleniumFramework.Pages.Interfaces;
+using MoreleSeleniumFramework.Utilities;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Interactions;
@@ -34,9 +35,9 @@ public sealed class ProductsInCategoryPage : IProductsInCategoryPage
 	public ProductDetails GetProductInfo(ReadOnlyCollection<IWebElement> productsList, int productNumber)
 	{
 		IWebElement element = productsList[productNumber];
+
 		string name = element.GetAttribute("data-product-name");
-		string rawPrice = element.GetAttribute("data-product-price").Replace(".",",");
-		decimal price = decimal.Parse(rawPrice);
+		decimal price = PriceConverter.ParsePriceToDecimal(element.GetAttribute("data-product-price"));
 
 		return new ProductDetails() { Name = name, Price = price };
 	}

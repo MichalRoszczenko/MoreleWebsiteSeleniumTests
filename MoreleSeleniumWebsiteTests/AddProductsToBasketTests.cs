@@ -84,6 +84,43 @@ namespace MoreleSeleniumWebsiteTests
 			}
 		}
 
+		[Theory]
+		[InlineData(25, 4)]
+		[InlineData(20, 4)]
+		[InlineData(13, 4)]
+		[InlineData(6, 4)]
+		public void AddProductsToBasket_TotalPriceOfBasketShouldBeCalculatedCorrectly(int startProduct, int productsToAdd)
+		{
+			//assert
+			List<ProductDetails> addedProducts = new List<ProductDetails>();
+
+			//act
+			PreliminarySetup();
+
+			var products = _productsInCategory.ProductsProvidedByMorele;
+
+			ArgumentsRangeCheck(startProduct, productsToAdd, products.Count);
+
+			for (int i = startProduct; i < startProduct + productsToAdd; i++)
+			{
+				var product = AddProductToBasket(products, i);
+
+				addedProducts.Add(product);
+			}
+
+			_homePage.Basket.Click();
+
+			decimal calculatedPrice = 0;
+
+			foreach (var product in addedProducts)
+			{
+				calculatedPrice += product.Price;
+			}
+
+			//assert
+			calculatedPrice.Should().Be(_basketPage.GetSummaryBasketPrice());
+		}
+
 		private void PreliminarySetup()
 		{
 			_wait.Until(d => _homePage.AcceptCookiesButtons.Displayed);

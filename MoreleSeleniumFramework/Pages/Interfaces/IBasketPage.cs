@@ -9,5 +9,6 @@ namespace MoreleSeleniumFramework.Pages.Interfaces
         ReadOnlyCollection<IWebElement> ProductsInBasket { get; }
 
 		List<ProductDetails> GetProductsFromBasket(ReadOnlyCollection<IWebElement> elementsInBasket);
-    }
+		decimal GetSummaryBasketPrice();
+	}
 }
