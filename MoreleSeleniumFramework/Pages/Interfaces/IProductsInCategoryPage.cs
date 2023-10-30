@@ -8,7 +8,7 @@ namespace MoreleSeleniumFramework.Pages.Interfaces
     {
 		IWebElement WarrantyPopUp { get; }
 		IWebElement WarrantyWindowCloseButton { get; }
-		ReadOnlyCollection<IWebElement> Products { get; }
+		ReadOnlyCollection<IWebElement> ProductsProvidedByMorele { get; }
 		void AddProductToBasket(ReadOnlyCollection<IWebElement> productsList, int productNumber);
 		ProductDetails GetProductInfo(ReadOnlyCollection<IWebElement> productsList, int productNumber);
 	}

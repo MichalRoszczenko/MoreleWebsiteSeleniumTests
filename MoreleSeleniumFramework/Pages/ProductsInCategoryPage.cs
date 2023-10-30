@@ -21,7 +21,8 @@ public sealed class ProductsInCategoryPage : IProductsInCategoryPage
 
 	public IWebElement WarrantyPopUp => _driver.FindElement(By.CssSelector("div[class*='accordion-text_desktop']"));
 	public IWebElement WarrantyWindowCloseButton => _driver.FindElement(By.ClassName("md-header-close-btn"));
-	public ReadOnlyCollection<IWebElement> Products => _driver.FindElements(By.CssSelector("div[data-product-position]"));
+	public ReadOnlyCollection<IWebElement> ProductsProvidedByMorele => 
+		_driver.FindElements(By.CssSelector("div[class='cat-product card']:not(div:has([data-controller='merchant-info']))"));
 
 	public void AddProductToBasket(ReadOnlyCollection<IWebElement> productsList, int productNumber)
 	{

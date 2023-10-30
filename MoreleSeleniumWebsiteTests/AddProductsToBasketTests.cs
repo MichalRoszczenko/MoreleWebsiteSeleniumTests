@@ -37,7 +37,7 @@ namespace MoreleSeleniumWebsiteTests
 			//act
 			PreliminarySetup();
 
-			var product = AddProductToBasket(_productsInCategory.Products, productNumber);
+			var product = AddProductToBasket(_productsInCategory.ProductsProvidedByMorele, productNumber);
 
 			_homePage.Basket.Click();
 			var productsInBasket = _basketPage.GetProductsFromBasket(_basketPage.ProductsInBasket);
@@ -59,7 +59,7 @@ namespace MoreleSeleniumWebsiteTests
 			//act
 			PreliminarySetup();
 
-			var products = _productsInCategory.Products;
+			var products = _productsInCategory.ProductsProvidedByMorele;
 
 			ArgumentsRangeCheck(startProduct, productsToAdd, products.Count);
 
