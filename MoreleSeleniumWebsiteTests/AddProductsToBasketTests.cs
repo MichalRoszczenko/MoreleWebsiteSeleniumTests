@@ -31,11 +31,15 @@ namespace MoreleSeleniumWebsiteTests
 		[InlineData(3)]
 		[InlineData(13)]
 		[InlineData(5)]
-		[InlineData(29)]
+		[InlineData(28)]
 		public void AddProductToBasket_AddedGraphicCardShouldBeInBasket(int productNumber)
 		{
 			//act
 			PreliminarySetup();
+
+			var products = _productsInCategory.ProductsProvidedByMorele;
+
+			ArgumentsRangeCheck(productNumber, 1, products.Count);
 
 			var product = AddProductToBasket(_productsInCategory.ProductsProvidedByMorele, productNumber);
 
