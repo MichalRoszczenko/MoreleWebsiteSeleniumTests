@@ -58,6 +58,8 @@ namespace MoreleSeleniumWebsiteTests
 
 			var products = _productsInCategory.Products;
 
+			ArgumentsRangeCheck(startProduct, productsToAdd, products.Count);
+
 			for (int i = startProduct; i < startProduct+productsToAdd; i++)
 			{
 				var product = AddProductToBasket(products,i);
@@ -91,6 +93,22 @@ namespace MoreleSeleniumWebsiteTests
 			_productsInCategory.WarrantyWindowCloseButton.Click();
 
 			return product;
+		}
+
+		private void ArgumentsRangeCheck(int startProduct, int numberOfProductsToAdd, int numberOfElementsOnPage)
+		{
+			if (startProduct < 0)
+			{
+				throw new ArgumentOutOfRangeException($"{nameof(startProduct)} must be equal to or greater than 0.");
+			}
+			if (startProduct + numberOfProductsToAdd > numberOfElementsOnPage)
+			{
+				throw new ArgumentOutOfRangeException($"The products in the category are in the defaulty range 0-{numberOfElementsOnPage-1}");
+			}
+			if (numberOfProductsToAdd <= 0 && numberOfProductsToAdd >= numberOfElementsOnPage)
+			{
+				throw new ArgumentOutOfRangeException($"{nameof(numberOfProductsToAdd)} must be less than {numberOfElementsOnPage} and greater than 0.");
+			}
 		}
 	}
 }
