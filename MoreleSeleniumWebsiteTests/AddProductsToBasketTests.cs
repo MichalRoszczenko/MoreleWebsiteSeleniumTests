@@ -48,6 +48,9 @@ namespace MoreleSeleniumWebsiteTests
 
 		[Theory]
 		[InlineData(25,4)]
+		[InlineData(20,4)]
+		[InlineData(13,4)]
+		[InlineData(6,4)]
 		public void AddProductsToBasket_AddedGraphicCardShouldBeInBasket(int startProduct, int productsToAdd)
 		{
 			//assert
