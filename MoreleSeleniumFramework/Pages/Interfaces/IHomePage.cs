@@ -1,8 +1,9 @@
-﻿using OpenQA.Selenium;
+﻿using MoreleSeleniumFramework.Pages.Interfaces.Minor;
+using OpenQA.Selenium;
 
 namespace MoreleSeleniumFramework.Pages.Interfaces;
 
-public interface IHomePage
+public interface IHomePage : ISearchElements
 {
 	IWebElement Basket { get; }
 	IWebElement ComputerComponentsMainCategory { get; }

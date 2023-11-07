@@ -17,4 +17,7 @@ public sealed class HomePage : IHomePage
 	public IWebElement ComputerComponentsMainCategory => _driver.FindElement(By.CssSelector("li>a[href='/podzespoly-komputerowe/']"));
 	public IWebElement GraphicCardsSubCategory => _driver.FindElement(By.CssSelector("li>a[href*='karty-graficzne']"));
 	public IWebElement AcceptCookiesButtons => _driver.FindElement(By.CssSelector("div[id='cookie_box'] button"));
+
+	public IWebElement SearchInputBar => _driver.FindElement(By.CssSelector("header input[type='search']"));
+	public IWebElement SearchButton => _driver.FindElement(By.CssSelector("header button[type='submit']"));
 }
