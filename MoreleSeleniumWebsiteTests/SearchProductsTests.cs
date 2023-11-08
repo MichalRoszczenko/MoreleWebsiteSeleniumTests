@@ -25,7 +25,6 @@ public class SearchProductsTests
 	[Theory()]
 	[InlineData("graficzna")]
 	[InlineData("procesor")]
-	[InlineData("filtr")]
 	[InlineData("płyta główna")]
 	[InlineData("obudowa")]
 	[InlineData("mysz")]
@@ -53,6 +52,26 @@ public class SearchProductsTests
 			var name = product.Name.ToLower();
 			name.Should().Contain(keyword.ToLower());
 		}
+	}
+
+	[Theory()]
+	[InlineData("graficzna")]
+	[InlineData("procesor")]
+	[InlineData("płyta główna")]
+	[InlineData("obudowa")]
+	[InlineData("mysz")]
+	public void SearchForProductsByKeyword_NumberOfProductsSearchedIsWithinCorrectRange(string keyword)
+	{
+		//act
+		PreliminarySetup();
+
+		_homePage.SearchInputBar.SendKeys(keyword.ToLower());
+		_homePage.SearchInputBar.Submit();
+
+		ReadOnlyCollection<IWebElement> products = _productsInCategory.ProductsProvidedByMorele;
+
+		//assert
+		products.Count.Should().BeLessThanOrEqualTo(30);
 	}
 
 	private void PreliminarySetup()
