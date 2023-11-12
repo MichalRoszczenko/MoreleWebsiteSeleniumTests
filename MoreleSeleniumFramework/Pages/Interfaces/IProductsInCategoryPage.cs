@@ -11,8 +11,9 @@ namespace MoreleSeleniumFramework.Pages.Interfaces
 		IWebElement WarrantyWindowCloseButton { get; }
 		ReadOnlyCollection<IWebElement> ProductsProvidedByMorele { get; }
 		ReadOnlyCollection<IWebElement> ProductsInCategory { get; }
+		IWebElement LoadingPageCircle { get; }
 		void AddProductToBasket(ReadOnlyCollection<IWebElement> productsList, int productNumber);
 		ProductDetails GetProductInfo(ReadOnlyCollection<IWebElement> productsList, int productNumber);
-		IWebElement SelectPageNumber(int pageNumber);
+		void GoToPage(int pageNumber);
 	}
 }
