@@ -34,6 +34,8 @@ public sealed class ProductsInCategoryPage : IProductsInCategoryPage
 		_driver.FindElements(By.CssSelector("div[data-fhead-name='Producenci'] div[data-name]"));
 	public IWebElement ProducersFilterShowMoreButton =>
 		_driver.FindElement(By.CssSelector("div[data-fhead-name='Producenci'] span[data-trans-open]"));
+	public ReadOnlyCollection<IWebElement> ProductBrand =>
+		_driver.FindElements(By.CssSelector("div[data-product-brand]"));
 
 	public void GoToPage(int pageNumber)
 	{
@@ -89,4 +91,11 @@ public sealed class ProductsInCategoryPage : IProductsInCategoryPage
 	}
 	public IWebElement ProducerFilterCheckbox(IWebElement producerFilter) => producerFilter.FindElement(By.CssSelector("label"));
 	public int NumberOfFilteredProducts(IWebElement filter) => int.Parse(filter.GetAttribute("data-count"));
+	public int GetNumberOfPages()
+	{
+		string attribute = _driver.FindElement(By.CssSelector("ul[data-count]")).GetAttribute("data-count");
+		int numberOfPages = int.Parse(attribute);
+
+		return numberOfPages;
+	}
 }
