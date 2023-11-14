@@ -30,7 +30,7 @@ public class FilterProductsTests
 	[InlineData("afox")]
 	[InlineData("asus")]
 	[InlineData("asrock")]
-	public void UseProducerFilter_ReturnsCorrectNumberOfFilteredProducts(string producerTag)
+	public void Manufacturer_filter_returns_correct_number_of_filtered_cards(string producerTag)
 	{
 		//act
 		PreliminarySetup();

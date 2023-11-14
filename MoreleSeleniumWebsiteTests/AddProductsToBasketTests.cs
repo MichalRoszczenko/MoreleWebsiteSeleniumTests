@@ -32,7 +32,7 @@ namespace MoreleSeleniumWebsiteTests
 		[InlineData(13)]
 		[InlineData(5)]
 		[InlineData(28)]
-		public void AddProductToBasket_AddedGraphicCardShouldBeInBasket(int productNumber)
+		public void Added_card_to_basket_is_in_basket(int productNumber)
 		{
 			//act
 			PreliminarySetup();
@@ -55,7 +55,7 @@ namespace MoreleSeleniumWebsiteTests
 		[InlineData(20,4)]
 		[InlineData(13,4)]
 		[InlineData(6,4)]
-		public void AddProductsToBasket_AddedGraphicCardShouldBeInBasket(int startProduct, int productsToAdd)
+		public void Added_cards_to_basket_are_in_basket(int startProduct, int productsToAdd)
 		{
 			//assert
 			List<ProductDetails> addedProducts = new List<ProductDetails>();
@@ -89,7 +89,8 @@ namespace MoreleSeleniumWebsiteTests
 		[InlineData(20, 4)]
 		[InlineData(13, 4)]
 		[InlineData(6, 4)]
-		public void AddProductsToBasket_TotalPriceOfBasketShouldBeCalculatedCorrectly(int startProduct, int productsToAdd)
+		public void Total_price_of_cards_added_to_basket_are_calculated_correctly(int startProduct, int productsToAdd)
+			
 		{
 			//assert
 			List<ProductDetails> addedProducts = new List<ProductDetails>();

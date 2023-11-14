@@ -28,7 +28,7 @@ public class SearchProductsTests
 	[InlineData("płyta główna")]
 	[InlineData("obudowa")]
 	[InlineData("mysz")]
-	public void SearchForProductsByKeyword_SearchResultsIncludeProductNamesWithMatchingKeyword(string keyword)
+	public void Search_by_keyword_returns_cards_with_matching_names(string keyword)
 	{
 		//act
 		PreliminarySetup();
@@ -60,7 +60,7 @@ public class SearchProductsTests
 	[InlineData("płyta główna")]
 	[InlineData("obudowa")]
 	[InlineData("mysz")]
-	public void SearchForProductsByKeyword_NumberOfProductsSearchedIsWithinCorrectRange(string keyword)
+	public void Search_by_keyword_returns_cards_that_not_exceed_maximum_number_of_items_displayed(string keyword)
 	{
 		//act
 		PreliminarySetup();
