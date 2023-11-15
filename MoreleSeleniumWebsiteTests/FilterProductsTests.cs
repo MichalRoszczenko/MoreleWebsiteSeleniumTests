@@ -98,6 +98,40 @@ public class FilterProductsTests
 		brands.Should().AllBe(brandName.ToLower());
     }
 
+	[Theory]
+	[InlineData("DDR2")]
+	[InlineData("DDR3")]
+	[InlineData("DDR4")]
+	[InlineData("GDDR3")]
+	[InlineData("GDDR5")]
+	[InlineData("hbm2e")]
+	public void Ram_type_filter_returns_correct_number_of_filtered_cards(string ramType)
+	{
+		//act
+		PreliminarySetup();
+		string filterCategory = "Rodzaj pamięci RAM";
+
+		IWebElement filter = _productsInCategoryPage.SelectFiltrationInCategory(filterCategory, ramType);
+		int filteredProductsCount = _productsInCategoryPage.NumberOfFilteredProducts(filter);
+		_productsInCategoryPage.GetFilterShowMoreButton(filterCategory).Click();
+		_productsInCategoryPage.SelectFilterCheckbox(filter).Click();
+
+		int numberOfProductsOnLastPage = filteredProductsCount % 30;
+		int pageNumber = (int)Math.Ceiling((decimal)filteredProductsCount / 30);
+
+		if (filteredProductsCount > 30)
+		{
+			_wait.Until(WaitFor.ElementInvisibility(_productsInCategoryPage.LoadingPageCircle));
+			_productsInCategoryPage.GoToPage(pageNumber);
+		}
+
+		_wait.Until(WaitFor.ElementInvisibility(_productsInCategoryPage.LoadingPageCircle));
+		int productsShownOnPage = _productsInCategoryPage.ProductsInCategory.Count;
+
+		//assert
+		filteredProductsCount.Should().Be(productsShownOnPage + ((pageNumber - 1) * 30));
+	}
+
 	private void PreliminarySetup()
 	{
 		_wait.Until(d => _homePage.AcceptCookiesButtons.Displayed && _homePage.AcceptCookiesButtons.Enabled);
