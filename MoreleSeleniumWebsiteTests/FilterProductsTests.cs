@@ -30,15 +30,16 @@ public class FilterProductsTests
 	[InlineData("afox")]
 	[InlineData("asus")]
 	[InlineData("asrock")]
-	public void Manufacturer_filter_returns_correct_number_of_filtered_cards(string producerTag)
+	public void Manufacturer_filter_returns_correct_number_of_filtered_cards(string brandName)
 	{
 		//act
 		PreliminarySetup();
+		string filterCategory = "Producenci";
 
-		IWebElement producerFilter = _productsInCategoryPage.SelectFiltratingByProducer(producerTag);
-		int filteredProductsCount = _productsInCategoryPage.NumberOfFilteredProducts(producerFilter);
-		_productsInCategoryPage.ProducersFilterShowMoreButton.Click();
-		_productsInCategoryPage.ProducerFilterCheckbox(producerFilter).Click();
+		IWebElement filter = _productsInCategoryPage.SelectFiltrationInCategory(filterCategory, brandName);
+		int filteredProductsCount = _productsInCategoryPage.NumberOfFilteredProducts(filter);
+		_productsInCategoryPage.GetFilterShowMoreButton(filterCategory).Click();
+		_productsInCategoryPage.SelectFilterCheckbox(filter).Click();
 
 		int numberOfProductsOnLastPage = filteredProductsCount % 30;
 		int pageNumber = (int)Math.Ceiling((decimal)filteredProductsCount / 30);
@@ -62,15 +63,16 @@ public class FilterProductsTests
 	[InlineData("afox")]
 	[InlineData("asus")]
 	[InlineData("asrock")]
-	public void Manufacturer_filter_result_shows_cards_with_correct_brand(string producerTag)
+	public void Manufacturer_filter_result_shows_cards_with_correct_brand(string brandName)
 	{
 		//act
 		PreliminarySetup();
+		string filterCategory = "Producenci";
 
-		IWebElement producerFilter = _productsInCategoryPage.SelectFiltratingByProducer(producerTag);
+		IWebElement producerFilter = _productsInCategoryPage.SelectFiltrationInCategory(filterCategory, brandName);
 		int filteredProductsCount = _productsInCategoryPage.NumberOfFilteredProducts(producerFilter);
-		_productsInCategoryPage.ProducersFilterShowMoreButton.Click();
-		_productsInCategoryPage.ProducerFilterCheckbox(producerFilter).Click();
+		_productsInCategoryPage.GetFilterShowMoreButton(filterCategory).Click();
+		_productsInCategoryPage.SelectFilterCheckbox(producerFilter).Click();
 
 		_wait.Until(WaitFor.ElementInvisibility(_productsInCategoryPage.LoadingPageCircle));
 
@@ -93,7 +95,7 @@ public class FilterProductsTests
 		}
 
 		//assert
-		brands.Should().AllBe(producerTag.ToLower());
+		brands.Should().AllBe(brandName.ToLower());
     }
 
 	private void PreliminarySetup()

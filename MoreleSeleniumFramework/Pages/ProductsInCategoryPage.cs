@@ -30,10 +30,6 @@ public sealed class ProductsInCategoryPage : IProductsInCategoryPage
 	public ReadOnlyCollection<IWebElement> ProductsInCategory => 
 		_driver.FindElements(By.CssSelector("div[class='cat-product card']"));
 	public IWebElement LoadingPageCircle => _driver.FindElement(By.CssSelector("i[class='circle-loading']"));
-	public ReadOnlyCollection<IWebElement> ProducersFilter =>
-		_driver.FindElements(By.CssSelector("div[data-fhead-name='Producenci'] div[data-name]"));
-	public IWebElement ProducersFilterShowMoreButton =>
-		_driver.FindElement(By.CssSelector("div[data-fhead-name='Producenci'] span[data-trans-open]"));
 	public ReadOnlyCollection<IWebElement> ProductBrand =>
 		_driver.FindElements(By.CssSelector("div[data-product-brand]"));
 
@@ -80,16 +76,18 @@ public sealed class ProductsInCategoryPage : IProductsInCategoryPage
 		return new ProductDetails() { Name = name, Price = price };
 	}
 
-	public IWebElement SelectFiltratingByProducer(string producerName)
+	public IWebElement SelectFiltrationInCategory(string filtrationCategory, string filtration)
 	{
-		var producers = ProducersFilter;
+		var filters = GetFiltersInCategory(filtrationCategory);
 
-		IWebElement producer = producers
-			.First(x => x.GetAttribute("data-name").ToLower() == producerName.ToLower());
+		IWebElement filter = filters
+			.First(x => x.GetAttribute("data-name").ToLower() == filtration.ToLower());
 
-		return producer;
+		return filter;
 	}
-	public IWebElement ProducerFilterCheckbox(IWebElement producerFilter) => producerFilter.FindElement(By.CssSelector("label"));
+	public ReadOnlyCollection<IWebElement> GetFiltersInCategory(string filtrationCategory) =>
+		_driver.FindElements(By.CssSelector($"div[data-fhead-name='{filtrationCategory}'] div[data-name]"));
+	public IWebElement SelectFilterCheckbox(IWebElement producerFilter) => producerFilter.FindElement(By.CssSelector("label"));
 	public int NumberOfFilteredProducts(IWebElement filter) => int.Parse(filter.GetAttribute("data-count"));
 	public int GetNumberOfPages()
 	{
@@ -98,4 +96,6 @@ public sealed class ProductsInCategoryPage : IProductsInCategoryPage
 
 		return numberOfPages;
 	}
+	public IWebElement GetFilterShowMoreButton(string filterCategory) =>
+	_driver.FindElement(By.CssSelector($"div[data-fhead-name='{filterCategory}'] span[data-trans-open]"));
 }
