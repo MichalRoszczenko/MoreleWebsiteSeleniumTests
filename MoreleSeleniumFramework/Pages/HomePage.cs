@@ -1,16 +1,19 @@
 ﻿using MoreleSeleniumFramework.Driver;
 using MoreleSeleniumFramework.Pages.Interfaces;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 
 namespace MoreleSeleniumFramework.Pages;
 
 public sealed class HomePage : IHomePage
 {
 	private readonly IWebDriver _driver;
+	private readonly WebDriverWait _wait;
 
 	public HomePage(IDriverFactory driverFactory)
     {
         _driver = driverFactory.Driver;
+		_wait = driverFactory.CreateWebDriverWait();
 	}
 
     public IWebElement Basket => _driver.FindElement(By.CssSelector("div>a[href*='koszyk']"));
@@ -21,4 +24,11 @@ public sealed class HomePage : IHomePage
 
 	public IWebElement SearchInputBar => _driver.FindElement(By.CssSelector("header input[type='search']"));
 	public IWebElement SearchButton => _driver.FindElement(By.CssSelector("header button[type='submit']"));
+
+	public void CloseStartupPopups()
+	{
+		BFAdCloseButton.Click();
+		_wait.Until(d => AcceptCookiesButton.Displayed && AcceptCookiesButton.Enabled);
+		AcceptCookiesButton.Click();
+	}
 }

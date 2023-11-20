@@ -124,8 +124,7 @@ namespace MoreleSeleniumWebsiteTests
 
 		private void PreliminarySetup()
 		{
-			_wait.Until(d => _homePage.AcceptCookiesButton.Displayed && _homePage.AcceptCookiesButton.Enabled);
-			_homePage.AcceptCookiesButton.Click();
+			_homePage.CloseStartupPopups();
 			_actions.MoveToElement(_homePage.ComputerComponentsMainCategory).Perform();
 			_homePage.GraphicCardsSubCategory.Click();
 		}

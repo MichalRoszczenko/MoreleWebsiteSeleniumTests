@@ -10,4 +10,5 @@ public interface IHomePage : ISearchElements
 	IWebElement GraphicCardsSubCategory { get; }
 	IWebElement AcceptCookiesButton { get; }
 	IWebElement BFAdCloseButton { get; }
+	void CloseStartupPopups();
 }
