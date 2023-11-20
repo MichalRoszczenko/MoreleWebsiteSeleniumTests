@@ -8,5 +8,5 @@ public interface IHomePage : ISearchElements
 	IWebElement Basket { get; }
 	IWebElement ComputerComponentsMainCategory { get; }
 	IWebElement GraphicCardsSubCategory { get; }
-	IWebElement AcceptCookiesButtons { get; }
+	IWebElement AcceptCookiesButton { get; }
 }
