@@ -1,9 +1,7 @@
 ﻿using FluentAssertions;
-using MoreleSeleniumFramework.Driver;
 using MoreleSeleniumFramework.Models;
 using MoreleSeleniumFramework.Pages.Interfaces;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
 using System.Collections.ObjectModel;
 
 namespace MoreleSeleniumWebsiteTests;
@@ -12,14 +10,11 @@ public class SearchGraphicCardsTests
 {
 	private readonly IHomePage _homePage;
 	private readonly IProductsInCategoryPage _productsInCategory;
-	private readonly WebDriverWait _wait;
 
-	public SearchGraphicCardsTests(IDriverFactory driverFactory, IHomePage homePage,
-			IProductsInCategoryPage productsInCategory)
+	public SearchGraphicCardsTests(IHomePage homePage,IProductsInCategoryPage productsInCategory)
 	{
 		_homePage = homePage;
 		_productsInCategory = productsInCategory;
-		_wait = driverFactory.CreateWebDriverWait();
 	}
 
 	[Theory()]
