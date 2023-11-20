@@ -8,13 +8,13 @@ using System.Collections.ObjectModel;
 
 namespace MoreleSeleniumWebsiteTests;
 
-public class SearchProductsTests
+public class SearchGraphicCardsTests
 {
 	private readonly IHomePage _homePage;
 	private readonly IProductsInCategoryPage _productsInCategory;
 	private readonly WebDriverWait _wait;
 
-	public SearchProductsTests(IDriverFactory driverFactory, IHomePage homePage,
+	public SearchGraphicCardsTests(IDriverFactory driverFactory, IHomePage homePage,
 			IProductsInCategoryPage productsInCategory)
 	{
 		_homePage = homePage;

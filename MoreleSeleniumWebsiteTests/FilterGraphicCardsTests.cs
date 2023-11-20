@@ -8,14 +8,14 @@ using OpenQA.Selenium.Support.UI;
 
 namespace MoreleSeleniumWebsiteTests;
 
-public class FilterProductsTests
+public class FilterGraphicCardsTests
 {
 	private readonly IHomePage _homePage;
 	private readonly IProductsInCategoryPage _productsInCategoryPage;
 	private readonly WebDriverWait _wait;
 	private readonly Actions _actions;
 
-	public FilterProductsTests(IHomePage homePage, IDriverFactory driverFactory,
+	public FilterGraphicCardsTests(IHomePage homePage, IDriverFactory driverFactory,
 		IProductsInCategoryPage productsInCategoryPage)
     {
 		_homePage = homePage;

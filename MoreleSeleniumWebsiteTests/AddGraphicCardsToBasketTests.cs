@@ -9,7 +9,7 @@ using System.Collections.ObjectModel;
 
 namespace MoreleSeleniumWebsiteTests
 {
-	public class AddProductsToBasketTests
+	public class AddGraphicCardsToBasketTests
 	{
 		private readonly IHomePage _homePage;
 		private readonly IProductsInCategoryPage _productsInCategory;
@@ -17,7 +17,7 @@ namespace MoreleSeleniumWebsiteTests
 		private readonly WebDriverWait _wait;
 		private readonly Actions _actions;
 
-		public AddProductsToBasketTests(IHomePage homePage, IDriverFactory driverFactory,
+		public AddGraphicCardsToBasketTests(IHomePage homePage, IDriverFactory driverFactory,
 			IProductsInCategoryPage productsInCategory, IBasketPage basketPage)
         {
 			_homePage = homePage;
