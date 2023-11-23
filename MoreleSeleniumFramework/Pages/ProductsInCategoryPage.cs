@@ -30,7 +30,7 @@ public sealed class ProductsInCategoryPage : IProductsInCategoryPage
 	public ReadOnlyCollection<IWebElement> ProductsInCategory => 
 		_driver.FindElements(By.CssSelector("div[class='cat-product card']"));
 	public IWebElement LoadingPageCircle => _driver.FindElement(By.CssSelector("i[class='circle-loading']"));
-	public ReadOnlyCollection<IWebElement> ProductBrand =>
+	public ReadOnlyCollection<IWebElement> ProductBrands =>
 		_driver.FindElements(By.CssSelector("div[data-product-brand]"));
 
 	public void GoToPage(int pageNumber)
