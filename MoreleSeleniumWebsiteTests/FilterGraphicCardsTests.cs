@@ -87,7 +87,7 @@ public class FilterGraphicCardsTests
 		for (int i = 1; i <= numberOfPages; i++)
 		{
 			_wait.Until(WaitFor.ElementInvisibility(_productsInCategoryPage.LoadingPageCircle));
-			var brandElements = _productsInCategoryPage.ProductBrand;
+			var brandElements = _productsInCategoryPage.ProductBrands;
 
 			foreach (var element in brandElements)
 			{
@@ -101,6 +101,45 @@ public class FilterGraphicCardsTests
 
 		//assert
 		brands.Should().AllBe(brandName.ToLower());
+    }
+
+	[Theory]
+	[InlineData("karty graficzne","Producenci" ,"pny")]
+	public void Searched_cards_filtrated_by_brand_shows_cards_with_correct_brand(string searchKeyword,
+		string filtrationCategory, string brandToFiltration)
+	{
+        //act
+        PreliminarySetup();
+
+        _homePage.SearchInputBar.SendKeys(searchKeyword.ToLower());
+        _homePage.SearchInputBar.Submit();
+
+        _productsInCategoryPage.GetFilterShowMoreButton(filtrationCategory).Click();
+        IWebElement filter = _productsInCategoryPage.SelectFiltrationInCategory(filtrationCategory, brandToFiltration);
+		_productsInCategoryPage.SelectFilterCheckbox(filter).Click();
+
+		_wait.Until(WaitFor.ElementInvisibility(_productsInCategoryPage.LoadingPageCircle));
+
+		int numberOfPages = _productsInCategoryPage.GetNumberOfPages();
+        List<string> brands = new List<string>();
+
+        for (int i = 1; i <= numberOfPages; i++)
+		{
+            _wait.Until(WaitFor.ElementInvisibility(_productsInCategoryPage.LoadingPageCircle));
+
+            var brandElements = _productsInCategoryPage.ProductBrands;
+
+            foreach (IWebElement element in brandElements)
+            {
+                string brand = element.GetAttribute("data-product-brand");
+                brands.Add(brand.ToLower());
+            }
+
+			if(i != numberOfPages)
+			_productsInCategoryPage.GoToPage(i + 1);
+        }
+
+		brands.Should().AllBe(brandToFiltration);
     }
 
 	private void PreliminarySetup()
