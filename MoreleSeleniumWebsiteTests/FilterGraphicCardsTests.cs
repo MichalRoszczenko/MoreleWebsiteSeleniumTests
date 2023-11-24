@@ -81,26 +81,10 @@ public class FilterGraphicCardsTests
 
 		_wait.Until(WaitFor.ElementInvisibility(_productsInCategoryPage.LoadingPageCircle));
 
-		int numberOfPages = _productsInCategoryPage.GetNumberOfPages();
-		List<string> brands = new List<string>();
+		List<string> brands = GetAllCardBrandsOnAvailableSites();
 
-		for (int i = 1; i <= numberOfPages; i++)
-		{
-			_wait.Until(WaitFor.ElementInvisibility(_productsInCategoryPage.LoadingPageCircle));
-			var brandElements = _productsInCategoryPage.ProductBrands;
-
-			foreach (var element in brandElements)
-			{
-				string brand = element.GetAttribute("data-product-brand");
-				brands.Add(brand.ToLower());
-			}
-
-			if(i != numberOfPages)
-			_productsInCategoryPage.GoToPage(i + 1);
-		}
-
-		//assert
-		brands.Should().AllBe(brandName.ToLower());
+        //assert
+        brands.Should().AllBe(brandName.ToLower());
     }
 
 	[Theory]
@@ -120,11 +104,25 @@ public class FilterGraphicCardsTests
 
 		_wait.Until(WaitFor.ElementInvisibility(_productsInCategoryPage.LoadingPageCircle));
 
-		int numberOfPages = _productsInCategoryPage.GetNumberOfPages();
+        List<string> brands = GetAllCardBrandsOnAvailableSites();
+
+        brands.Should().AllBe(brandToFiltration);
+    }
+
+	private void PreliminarySetup()
+	{
+		_homePage.CloseStartupPopups();
+		_actions.MoveToElement(_homePage.ComputerComponentsMainCategory).Perform();
+		_homePage.GraphicCardsSubCategory.Click();
+	}
+
+    private List<string> GetAllCardBrandsOnAvailableSites()
+    {
+        int numberOfPages = _productsInCategoryPage.GetNumberOfPages();
         List<string> brands = new List<string>();
 
         for (int i = 1; i <= numberOfPages; i++)
-		{
+        {
             _wait.Until(WaitFor.ElementInvisibility(_productsInCategoryPage.LoadingPageCircle));
 
             var brandElements = _productsInCategoryPage.ProductBrands;
@@ -135,17 +133,10 @@ public class FilterGraphicCardsTests
                 brands.Add(brand.ToLower());
             }
 
-			if(i != numberOfPages)
-			_productsInCategoryPage.GoToPage(i + 1);
+            if (i != numberOfPages)
+                _productsInCategoryPage.GoToPage(i + 1);
         }
 
-		brands.Should().AllBe(brandToFiltration);
+        return brands;
     }
-
-	private void PreliminarySetup()
-	{
-		_homePage.CloseStartupPopups();
-		_actions.MoveToElement(_homePage.ComputerComponentsMainCategory).Perform();
-		_homePage.GraphicCardsSubCategory.Click();
-	}
 }
