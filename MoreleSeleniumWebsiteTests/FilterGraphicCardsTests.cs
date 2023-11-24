@@ -74,10 +74,9 @@ public class FilterGraphicCardsTests
 		PreliminarySetup();
 		string filterCategory = "Producenci";
 
-		IWebElement producerFilter = _productsInCategoryPage.SelectFiltrationInCategory(filterCategory, brandName);
-		int filteredProductsCount = _productsInCategoryPage.NumberOfFilteredProducts(producerFilter);
 		_productsInCategoryPage.GetFilterShowMoreButton(filterCategory).Click();
-		_productsInCategoryPage.SelectFilterCheckbox(producerFilter).Click();
+        IWebElement producerFilter = _productsInCategoryPage.SelectFiltrationInCategory(filterCategory, brandName);
+        _productsInCategoryPage.SelectFilterCheckbox(producerFilter).Click();
 
 		_wait.Until(WaitFor.ElementInvisibility(_productsInCategoryPage.LoadingPageCircle));
 
