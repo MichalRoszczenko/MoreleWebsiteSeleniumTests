@@ -9,6 +9,5 @@ public interface IHomePage : ISearchElements
 	IWebElement ComputerComponentsMainCategory { get; }
 	IWebElement GraphicCardsSubCategory { get; }
 	IWebElement AcceptCookiesButton { get; }
-	IWebElement BFAdCloseButton { get; }
 	void CloseStartupPopups();
 }
