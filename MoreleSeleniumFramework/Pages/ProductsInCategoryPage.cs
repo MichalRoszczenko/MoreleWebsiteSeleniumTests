@@ -1,5 +1,6 @@
 ﻿using MoreleSeleniumFramework.Driver;
 using MoreleSeleniumFramework.Models;
+using MoreleSeleniumFramework.Models.Sorting;
 using MoreleSeleniumFramework.Pages.Interfaces;
 using MoreleSeleniumFramework.Utilities;
 using OpenQA.Selenium;
@@ -32,8 +33,7 @@ public sealed class ProductsInCategoryPage : IProductsInCategoryPage
 	public IWebElement LoadingPageCircle => _driver.FindElement(By.CssSelector("i[class='circle-loading']"));
 	public ReadOnlyCollection<IWebElement> ProductBrands =>
 		_driver.FindElements(By.CssSelector("div[data-product-brand]"));
-
-	public void GoToPage(int pageNumber)
+    public void GoToPage(int pageNumber)
 	{
 		switch (pageNumber)
 		{
@@ -98,4 +98,10 @@ public sealed class ProductsInCategoryPage : IProductsInCategoryPage
 	}
 	public IWebElement GetFilterShowMoreButton(string filterCategory) =>
 	_driver.FindElement(By.CssSelector($"div[data-fhead-name='{filterCategory}'] span[data-trans-open]"));
+
+	public void SelectSortButton(SortingToggle value)
+	{
+		_driver.FindElement(By.CssSelector("select[name=category_sort]+button")).Click();
+		_driver.FindElement(By.CssSelector($"li[data-dropdown-value='{value.SortingOption}']")).Click();
+	}
 }

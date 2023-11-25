@@ -5,7 +5,7 @@ using System.Collections.ObjectModel;
 
 namespace MoreleSeleniumFramework.Pages.Interfaces
 {
-    public interface IProductsInCategoryPage : IProductFiltering
+    public interface IProductsInCategoryPage : IProductFiltering, IProductSort
 	{
 		IWebElement WarrantyPopUp { get; }
 		IWebElement WarrantyWindowCloseButton { get; }
