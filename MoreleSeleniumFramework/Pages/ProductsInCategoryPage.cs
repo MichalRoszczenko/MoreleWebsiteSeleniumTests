@@ -75,8 +75,20 @@ public sealed class ProductsInCategoryPage : IProductsInCategoryPage
 
 		return new ProductDetails() { Name = name, Price = price };
 	}
+    public List<ProductDetails> GetProductsInfo(ReadOnlyCollection<IWebElement> productsList)
+    {
+        List<ProductDetails> products = new List<ProductDetails>();
 
-	public IWebElement SelectFiltrationInCategory(string filtrationCategory, string filtration)
+        foreach (IWebElement element in productsList)
+        {
+            string name = element.GetAttribute("data-product-name");
+            decimal price = PriceConverter.ParsePriceToDecimal(element.GetAttribute("data-product-price"));
+            products.Add(new ProductDetails() { Name = name, Price = price });
+        }
+
+        return products;
+    }
+    public IWebElement SelectFiltrationInCategory(string filtrationCategory, string filtration)
 	{
 		var filters = GetFiltersInCategory(filtrationCategory);
 

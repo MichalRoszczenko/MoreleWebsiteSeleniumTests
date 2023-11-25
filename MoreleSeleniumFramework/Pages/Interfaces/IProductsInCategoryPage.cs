@@ -15,7 +15,8 @@ namespace MoreleSeleniumFramework.Pages.Interfaces
 		ReadOnlyCollection<IWebElement> ProductBrands { get; }
 		void AddProductToBasket(ReadOnlyCollection<IWebElement> productsList, int productNumber);
 		ProductDetails GetProductInfo(ReadOnlyCollection<IWebElement> productsList, int productNumber);
-		void GoToPage(int pageNumber);
+		List<ProductDetails> GetProductsInfo(ReadOnlyCollection<IWebElement> productsList);
+        void GoToPage(int pageNumber);
 		int GetNumberOfPages();
 	}
 }
