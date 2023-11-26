@@ -34,32 +34,42 @@ public sealed class ProductsInCategoryPage : IProductsInCategoryPage
 	public ReadOnlyCollection<IWebElement> ProductBrands =>
 		_driver.FindElements(By.CssSelector("div[data-product-brand]"));
     public void GoToPage(int pageNumber)
-	{
-		switch (pageNumber)
+    {
+		int numberOfPages = GetNumberOfPages();
+
+		if(numberOfPages >= 6)
 		{
-			case <= 0:
-				throw new ArgumentOutOfRangeException();
+            var chooseSite = _driver.FindElement(By.CssSelector($"li[class*='choose-site']>input"));
+            _actions.ScrollToElement(chooseSite).Perform();
+            chooseSite.Click();
+            chooseSite.SendKeys(pageNumber.ToString());
+            chooseSite.SendKeys(Keys.Enter);
+        }
+		else
+		{
+            IWebElement pageElement;
 
-			case <= 3:
-				_driver.FindElement(By
-					.CssSelector($".pagination.dynamic a[data-page='{pageNumber}']")).Click();
-				break;
+            switch (pageNumber)
+            {
+                case <= 0:
+					throw new ArgumentOutOfRangeException();
 
-			case <= 5:
-				_driver.FindElement(By
-					.CssSelector($".pagination.dynamic a[data-page='{pageNumber - 1}']")).Click();
-				_wait.Until(WaitFor.ElementInvisibility(LoadingPageCircle));
-				_driver.FindElement(By.CssSelector($"li:has([rel='next'])")).Click();
-				break;
+                case <= 3:
+                    pageElement = _driver.FindElement(By.CssSelector($".pagination.dynamic a[data-page='{pageNumber}']"));
+                    _actions.ScrollToElement(pageElement).Perform();
+                    pageElement.Click();
+                    break;
 
-			default:
-				var chooseSite = _driver.FindElement(By.CssSelector($"li[class*='choose-site']>input"));
-				chooseSite.Click();
-				chooseSite.SendKeys(pageNumber.ToString());
-				_driver.FindElement(By.CssSelector($"li:has([rel='next'])")).Click();
-				break;
-		}
-	}
+                case <= 5:
+                    pageElement = _driver.FindElement(By.CssSelector($".pagination.dynamic a[data-page='{pageNumber-1}']"));
+                    _actions.ScrollToElement(pageElement).Perform();
+                    pageElement.Click();
+                    _wait.Until(WaitFor.ElementInvisibility(LoadingPageCircle));
+                    _driver.FindElement(By.CssSelector($"li:has([rel='next'])")).Click();
+                    break;
+            }
+        }
+    }
 	public void AddProductToBasket(ReadOnlyCollection<IWebElement> productsList, int productNumber)
 	{
 		IWebElement element = productsList[productNumber].FindElement(By.ClassName("cat-product-buttons"));
