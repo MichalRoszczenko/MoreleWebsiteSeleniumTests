@@ -58,7 +58,7 @@ namespace MoreleSeleniumWebsiteTests
 		public void Added_cards_to_basket_are_in_basket(int startProduct, int productsToAdd)
 		{
 			//assert
-			List<ProductDetails> addedProducts = new List<ProductDetails>();
+			List<ProductDetails> addedProducts = new();
 
 			//act
 			PreliminarySetup();
@@ -93,7 +93,7 @@ namespace MoreleSeleniumWebsiteTests
 			
 		{
 			//assert
-			List<ProductDetails> addedProducts = new List<ProductDetails>();
+			List<ProductDetails> addedProducts = new();
 
 			//act
 			PreliminarySetup();

@@ -36,7 +36,7 @@ public class SortGraphicCardsTests
         _productsInCategoryPage.SelectSortButton(new SortingAscendingByPrice());
 
         int numberOfPages = _productsInCategoryPage.GetNumberOfPages();
-        List<ProductDetails> products = new List<ProductDetails>();
+        List<ProductDetails> products = new();
 
         for (int i = 1; i <= numberOfPages; i++)
         {

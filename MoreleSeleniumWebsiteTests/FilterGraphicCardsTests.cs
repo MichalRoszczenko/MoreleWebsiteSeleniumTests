@@ -118,7 +118,7 @@ public class FilterGraphicCardsTests
     private List<string> GetAllCardBrandsOnAvailableSites()
     {
         int numberOfPages = _productsInCategoryPage.GetNumberOfPages();
-        List<string> brands = new List<string>();
+        List<string> brands = new();
 
         for (int i = 1; i <= numberOfPages; i++)
         {

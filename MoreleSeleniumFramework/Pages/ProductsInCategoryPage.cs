@@ -87,7 +87,7 @@ public sealed class ProductsInCategoryPage : IProductsInCategoryPage
 	}
     public List<ProductDetails> GetProductsInfo(ReadOnlyCollection<IWebElement> productsList)
     {
-        List<ProductDetails> products = new List<ProductDetails>();
+        List<ProductDetails> products = new();
 
         foreach (IWebElement element in productsList)
         {
