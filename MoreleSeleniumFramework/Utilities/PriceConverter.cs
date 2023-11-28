@@ -1,18 +1,14 @@
-﻿using OpenQA.Selenium;
+﻿using System.Globalization;
 
 namespace MoreleSeleniumFramework.Utilities;
 
 public static class PriceConverter
 {
-	public static decimal ParsePriceToDecimal(IWebElement priceElement)
+	public static decimal ParsePriceToDecimal(string price)
 	{
-		string rawprice = priceElement.Text;
-		string price = rawprice.Replace("zł", "");
-		return decimal.Parse(price.Replace(".", ","));
-	}	
-	public static decimal ParsePriceToDecimal(string rawprice)
-	{
-		string price = rawprice.Replace("zł", "");
-		return decimal.Parse(price.Replace(".", ","));
+        CultureInfo provider = new CultureInfo("pl-PL");
+        NumberStyles style = NumberStyles.AllowThousands | NumberStyles.AllowCurrencySymbol | NumberStyles.Number;
+
+		return decimal.Parse(price.Replace(".", ","), style, provider);
 	}
 }

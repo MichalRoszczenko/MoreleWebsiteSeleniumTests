@@ -26,8 +26,7 @@ public sealed class BasketPage : IBasketPage
 		foreach (var element in elementsInBasket)
 		{
 			string name = element.GetAttribute("data-name");
-			string rawPrice = element.GetAttribute("data-price").Replace(".", ",");
-			decimal price = decimal.Parse(rawPrice);
+			decimal price = PriceConverter.ParsePriceToDecimal(element.GetAttribute("data-price"));
 
 			ProductDetails product = new ProductDetails() { Name = name, Price = price };
 
@@ -40,7 +39,7 @@ public sealed class BasketPage : IBasketPage
 	public decimal GetSummaryBasketPrice()
 	{
 		IWebElement priceInElement = _driver.FindElement(By.CssSelector(".summary-box-price b"));
-		decimal price = PriceConverter.ParsePriceToDecimal(priceInElement);
+		decimal price = PriceConverter.ParsePriceToDecimal(priceInElement.Text);
 
 		return price;
 	}
