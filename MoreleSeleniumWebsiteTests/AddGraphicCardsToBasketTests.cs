@@ -111,15 +111,11 @@ namespace MoreleSeleniumWebsiteTests
 
 			_homePage.Basket.Click();
 
-			decimal calculatedPrice = 0;
+            decimal calculatedPrice = addedProducts.Sum(x => x.Price);
+			decimal basketPrice = _basketPage.GetSummaryBasketPrice();
 
-			foreach (var product in addedProducts)
-			{
-				calculatedPrice += product.Price;
-			}
-
-			//assert
-			calculatedPrice.Should().Be(_basketPage.GetSummaryBasketPrice());
+            //assert
+            calculatedPrice.Should().Be(_basketPage.GetSummaryBasketPrice());
 		}
 
 		private void PreliminarySetup()
